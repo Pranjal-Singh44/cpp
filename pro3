@@ -1,0 +1,41 @@
+#include <iostream>
+#include <iomanip>
+using namespace std;
+class NUMBER {
+protected:
+    int value;  
+public:
+    void setValue(int v) {
+        value = v;
+    }
+};
+class DECIMAL : public NUMBER {
+public:
+    void display() {
+        cout << "Decimal: " << value << endl;
+    }
+};
+class HEXADECIMAL : public DECIMAL {
+public:
+    void display() {
+        cout << "Hexadecimal: " << hex << uppercase << value << dec << endl;
+    }
+};
+class OCTAL : public HEXADECIMAL {
+public:
+    void display() {
+        cout << "Octal: " << oct << value << dec << endl;
+    }
+};
+int main() {
+    OCTAL obj;
+    int num;
+    cout << "Enter an integer value: ";
+    cin >> num;
+    obj.setValue(num);
+    cout << "\nDisplaying in different formats:" << endl;
+    obj.DECIMAL::display();       
+    obj.HEXADECIMAL::display();   
+    obj.display();                
+    return 0;
+}
