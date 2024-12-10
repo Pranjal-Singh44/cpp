@@ -1,0 +1,49 @@
+#include <iostream>
+#include <string>
+using namespace std;
+class Employee {
+private:
+    int Employee_Number;
+    string Employee_Name;
+    float Basic, DA, IT, Net_Salary;
+public:
+    void readData() {
+        cout << "Enter Employee Number: ";
+        cin >> Employee_Number;
+        cin.ignore();  // To ignore the newline character after integer input
+        cout << "Enter Employee Name: ";
+        getline(cin, Employee_Name);
+        cout << "Enter Basic Salary: ";
+        cin >> Basic;
+    }
+    void calculateNetSalary() {
+        DA = 0.52 * Basic; // 52% of Basic as Dearness Allowance
+        IT = 0.30 * (Basic + DA); // 30% of gross salary (Basic + DA) as Income Tax
+        Net_Salary = Basic + DA - IT;
+    }
+    void printData() {
+        cout << "\nEmployee Number: " << Employee_Number << endl;
+        cout << "Employee Name: " << Employee_Name << endl;
+        cout << "Basic Salary: " << Basic << endl;
+        cout << "Dearness Allowance (DA): " << DA << endl;
+        cout << "Income Tax (IT): " << IT << endl;
+        cout << "Net Salary: " << Net_Salary << endl;
+    }
+};
+
+int main() {
+    int N;
+    cout << "Enter the number of employees: ";
+    cin >> N;
+    Employee employees[N];
+    for (int i = 0; i < N; i++) {
+        cout << "\nEnter details for Employee " << i + 1 << ":" << endl;
+        employees[i].readData();
+        employees[i].calculateNetSalary();
+    }
+    for (int i = 0; i < N; i++) {
+        cout << "\nDetails for Employee " << i + 1 << ":" << endl;
+        employees[i].printData();
+    }
+    return 0;
+}
