@@ -1,0 +1,56 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+class DATE {
+private:
+    int day, month, year;
+    void adjustDate() {
+        while (day > 30) {
+            day -= 30;
+            month++;
+        }
+        while (month > 12) {
+            month -= 12;
+            year++;
+        }
+    }
+
+public:
+    DATE(int d = 1, int m = 1, int y = 2000) : day(d), month(m), year(y) {}
+    void input() {
+        cout << "Enter date (dd mm yyyy): ";
+        cin >> day >> month >> year;
+    }
+    int operator-(const DATE& other) {
+        int totalDays1 = year * 360 + month * 30 + day;
+        int totalDays2 = other.year * 360 + other.month * 30 + other.day;
+        return abs(totalDays1 - totalDays2);
+    }
+    DATE operator+(int no_of_days) {
+        DATE result = *this;
+        result.day += no_of_days;
+        result.adjustDate();  // Adjust date after adding days
+        return result;
+    }
+    friend ostream& operator<<(ostream& out, const DATE& date) {
+        out << date.day << "/" << date.month << "/" << date.year;
+        return out;
+    }
+};
+int main() {
+    DATE d1, d2;
+    cout << "Enter first date:" << endl;
+    d1.input();
+    cout << "Enter second date:" << endl;
+    d2.input();
+    int no_of_days = d1 - d2;
+    cout << "\nDifference in days between dates: " << no_of_days << endl;
+    int add_days;
+    cout << "\nEnter number of days to add to the first date: ";
+    cin >> add_days;
+
+    DATE d3 = d1 + add_days;
+    cout << "New date after adding days: " << d3 << endl;
+
+    return 0;
+}
